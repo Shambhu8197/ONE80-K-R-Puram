@@ -43,7 +43,7 @@ export function CountdownPlaceholder() {
             <div className="flex flex-wrap items-center gap-3">
               <p className="eyebrow">The first night</p>
               <span className="border border-gold/35 bg-gold/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[.16em] text-gold">
-                12 Sep 2026 · 7:00 PM
+                19 Sep 2026 · 7:00 PM
               </span>
             </div>
             <h2 className="mt-5 text-4xl font-medium tracking-[-.06em] sm:text-5xl lg:text-6xl">

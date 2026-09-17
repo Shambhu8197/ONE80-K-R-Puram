@@ -4,27 +4,39 @@ import { SectionHeading } from "@/components/ui/section-heading";
 const frames = [
   {
     caption: "A glimpse of the ONE80° atmosphere",
-    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-14 at 8.37.09 PM.jpeg",
   },
   {
     caption: "The room before the night begins",
-    src: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-14 at 9.24.38 PM.jpeg",
   },
   {
     caption: "Light, sound, and shared energy",
-    src: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.14.16 PM.jpeg",
   },
   {
     caption: "Made for memorable moments",
-    src: "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.14.17 PM (1).jpeg",
   },
   {
     caption: "Your next night starts here",
-    src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.14.17 PM (2).jpeg",
   },
   {
     caption: "An evening built for unforgettable nights",
-    src: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=1200&q=80",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.14.17 PM.jpeg",
+  },
+  {
+    caption: "Music, movement, and connection",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.20.22 PM.jpeg",
+  },
+  {
+    caption: "A room made for shared moments",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.20.40 PM.jpeg",
+  },
+  {
+    caption: "The energy continues after sunset",
+    src: "/Concert Images/WhatsApp Image 2026-09-17 at 8.21.03 PM.jpeg",
   },
 ];
 
@@ -44,7 +56,7 @@ export function GallerySection() {
             caption={frame.caption}
             index={index + 1}
             src={frame.src}
-            featured={index === 0 || index === 3}
+            featured={index === 0 || index === 3 || index === 6}
           />
         ))}
       </div>

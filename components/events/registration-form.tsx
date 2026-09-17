@@ -6,34 +6,57 @@ type RegistrationFormProps = {
   eventTitle: string;
 };
 
+const registrationRecipient = "thedoorkrpuram@gmail.com";
+
 export function RegistrationForm({ eventTitle }: RegistrationFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const subject = `Event registration: ${eventTitle}`;
-    const body = [
-      `Event: ${eventTitle}`,
-      `Full name: ${form.get("name") || ""}`,
-      `Email address: ${form.get("email") || ""}`,
-      `Phone number: ${form.get("phone") || ""}`,
-    ].join("\n");
+    setSubmitting(true);
+    setError("");
 
-    window.location.href = `mailto:thedoorkrpuram@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    try {
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${registrationRecipient}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _subject: `Event registration: ${eventTitle}`,
+            Event: eventTitle,
+            "Full name": form.get("name") || "",
+            "Email address": form.get("email") || "",
+            "Phone number": form.get("phone") || "",
+            "Number of people": form.get("people") || "",
+          }),
+        },
+      );
+
+      if (!response.ok) throw new Error("Registration submission failed");
+      setSubmitted(true);
+    } catch {
+      setError(
+        "We could not send your registration right now. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
     return (
       <div className="panel p-8 sm:p-12" role="status">
-        <p className="eyebrow">Registration confirmed</p>
-        <h2 className="section-heading mt-4">
-          Congratulations, you’re registered.
-        </h2>
+        <p className="eyebrow">Registration received</p>
+        <h2 className="section-heading mt-4">You’re registered.</h2>
         <p className="copy mt-6 max-w-xl">
-          Your registration details have been prepared for the ONE80° EVENT
-          CENTER team. Keep an eye on your inbox for event updates.
+          Your details have been sent to the ONE80° EVENT CENTER team.
         </p>
       </div>
     );
@@ -74,8 +97,37 @@ export function RegistrationForm({ eventTitle }: RegistrationFormProps) {
           autoComplete="tel"
         />
       </label>
-      <button className="registration-submit" type="submit">
-        Complete registration <span aria-hidden>↗</span>
+      <label className="grid gap-2 text-sm text-muted">
+        Number of people
+        <select
+          className="registration-input"
+          name="people"
+          required
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Select number of people
+          </option>
+          {Array.from({ length: 10 }, (_, index) => index + 1).map((count) => (
+            <option key={count} value={count}>
+              {count} {count === 1 ? "person" : "people"}
+            </option>
+          ))}
+          <option value="10+">More than 10 people</option>
+        </select>
+      </label>
+      {error && (
+        <p className="text-sm text-red-300" role="alert">
+          {error}
+        </p>
+      )}
+      <button
+        className="registration-submit"
+        type="submit"
+        disabled={submitting}
+      >
+        {submitting ? "Sending registration..." : "Complete registration"}{" "}
+        {!submitting && <span aria-hidden>↗</span>}
       </button>
     </form>
   );

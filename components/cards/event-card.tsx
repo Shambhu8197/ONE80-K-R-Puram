@@ -22,9 +22,9 @@ export function EventCard({ number, category, title, slug }: EventCardProps) {
         <Link
           className="inline-flex items-center gap-2 text-link text-[10px] text-foreground/90 transition-colors duration-300 hover:text-gold"
           href={`/events/${slug}`}
-          aria-label={`Register for ${title}`}
+          aria-label={`Book your seat for ${title}`}
         >
-          Register now <span aria-hidden>↗</span>
+          Book your seat <span aria-hidden>↗</span>
         </Link>
       </div>
     </article>

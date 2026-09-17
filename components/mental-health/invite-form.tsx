@@ -10,25 +10,61 @@ const interests = [
   "Community Program",
   "Other",
 ];
+const registrationRecipient = "thedoorkrpuram@gmail.com";
 
 export function InviteForm() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const subject = `Campus event booking request from ${form.get("name") || "website visitor"}`;
-    const body = [
-      `Name: ${form.get("name") || ""}`,
-      `Organization / Institution: ${form.get("organization") || ""}`,
-      `Email: ${form.get("email") || ""}`,
-      `Phone: ${form.get("phone") || ""}`,
-      `Interested in: ${form.get("interest") || ""}`,
-      "",
-      `Requirement: ${form.get("message") || ""}`,
-    ].join("\n");
-    window.location.href = `mailto:hello@one80eventcenter.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${registrationRecipient}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _subject: `Campus event booking request from ${form.get("name") || "website visitor"}`,
+            Name: form.get("name") || "",
+            "Organization / Institution": form.get("organization") || "",
+            Email: form.get("email") || "",
+            Phone: form.get("phone") || "",
+            "Interested in": form.get("interest") || "",
+            Requirement: form.get("message") || "",
+          }),
+        },
+      );
+
+      if (!response.ok) throw new Error("Registration submission failed");
+      setSent(true);
+    } catch {
+      setError("We could not send your request right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (sent) {
+    return (
+      <div className="panel p-8 sm:p-12" role="status">
+        <p className="eyebrow">Registration received</p>
+        <h2 className="section-heading mt-4">
+          Thank you for your registration.
+        </h2>
+        <p className="copy mt-6 max-w-xl">
+          We have received your request and will get back to you shortly.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -95,20 +131,26 @@ export function InviteForm() {
           required
         />
       </label>
+      {error && (
+        <p className="text-sm text-red-300" role="alert">
+          {error}
+        </p>
+      )}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <button
           className="inline-flex min-h-12 items-center justify-center rounded-sm bg-gold px-5 text-xs font-semibold uppercase tracking-[.16em] text-black transition-all hover:-translate-y-0.5 hover:bg-foreground hover:shadow-[0_10px_24px_rgba(216,174,104,0.18)]"
           type="submit"
+          disabled={submitting}
         >
-          Send Booking Request{" "}
-          <span className="ml-2" aria-hidden>
-            ↗
-          </span>
+          {submitting ? "Sending request..." : "Send Booking Request"}
+          {!submitting && (
+            <span className="ml-2" aria-hidden>
+              ↗
+            </span>
+          )}
         </button>
         <p className="text-xs text-muted">
-          {sent
-            ? "Your email app should open with the booking request ready."
-            : "We will get back to you with the next steps."}
+          We will get back to you with the next steps.
         </p>
       </div>
     </form>

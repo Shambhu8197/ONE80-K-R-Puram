@@ -217,7 +217,7 @@ const recentEvents = [
     title: "Mental Health Awareness Workshop",
     date: "12 September 2026",
     location: "Bengaluru, Karnataka",
-    src: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1400&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.32 PM.jpeg",
     description:
       "An interactive awareness session designed to help participants understand mental health, recognize everyday challenges, encourage supportive conversations, and learn about appropriate sources of help.",
   },
@@ -226,23 +226,63 @@ const recentEvents = [
 const galleryPhotos = [
   {
     caption: "A moment from our awareness session",
-    src: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.32 PM.jpeg",
   },
   {
     caption: "Students participating in an interactive activity",
-    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.32 PM (1).jpeg",
   },
   {
     caption: "Creating space for meaningful conversations",
-    src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.32 PM (2).jpeg",
   },
   {
     caption: "Learning. Listening. Connecting.",
-    src: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.33 PM.jpeg",
   },
   {
     caption: "Together, building a culture of care.",
-    src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.33 PM (1).jpeg",
+  },
+  {
+    caption: "Listening with openness and care.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.34 PM.jpeg",
+  },
+  {
+    caption: "Shared learning in community.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.34 PM (1).jpeg",
+  },
+  {
+    caption: "Making room for every voice.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.34 PM (2).jpeg",
+  },
+  {
+    caption: "A campus culture of support.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.35 PM.jpeg",
+  },
+  {
+    caption: "Small moments of connection.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.35 PM (1).jpeg",
+  },
+  {
+    caption: "Together, learning to support one another.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.35 PM (2).jpeg",
+  },
+  {
+    caption: "Continuing the conversation.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 8.06.35 PM (3).jpeg",
+  },
+  {
+    caption: "A fresh perspective on well-being.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 10.01.55 PM.jpeg",
+  },
+  {
+    caption: "Building a more caring community.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 10.01.55 PM (1).jpeg",
+  },
+  {
+    caption: "Every conversation makes a difference.",
+    src: "/workshop images/WhatsApp Image 2026-09-14 at 10.01.56 PM.jpeg",
   },
 ] as const;
 

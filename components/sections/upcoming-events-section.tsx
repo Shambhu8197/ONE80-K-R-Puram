@@ -5,7 +5,7 @@ export const events = [
   {
     number: "01",
     category: "Live music",
-    title: "The next chapter is loading",
+    title: "Book your seat for the upcoming concert",
     slug: "the-next-chapter",
   },
   {
