@@ -1,26 +1,274 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080b10;
+  --foreground: #f7f4ed;
+  --surface: #0e141c;
+  --surface-raised: #17202b;
+  --muted: #aab3bf;
+  --line: rgba(247, 244, 237, 0.16);
+  --gold: #d8ae68;
+  --accent: #28a8f0;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease-out;
+}
+@keyframes dropdown-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
-
+details[open] > nav {
+  animation: dropdown-reveal 180ms ease-out both;
+}
+[id] {
+  scroll-margin-top: 7rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  details[open] > nav {
+    animation: none;
+  }
+}
+@keyframes events-logo-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+@keyframes events-logo-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(201, 163, 106, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(201, 163, 106, 0.3));
+  }
+}
+@keyframes home-logo-3d-drift {
+  0%,
+  100% {
+    transform: rotateX(10deg) rotateY(-14deg) rotateZ(-2deg) scale(0.98);
+  }
+  50% {
+    transform: rotateX(-8deg) rotateY(14deg) rotateZ(2deg) scale(1.04);
+  }
+}
+@keyframes home-logo-3d-glow {
+  0%,
+  100% {
+    opacity: 0.12;
+    filter: drop-shadow(0 0 12px rgba(201, 163, 106, 0.15));
+  }
+  50% {
+    opacity: 0.24;
+    filter: drop-shadow(0 0 46px rgba(201, 163, 106, 0.42));
+  }
+}
 body {
-  background: var(--background);
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top, rgba(216, 174, 104, 0.08), transparent 30%),
+    linear-gradient(180deg, #080b10 0%, #0b1117 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+.hero-atmosphere {
+  background:
+    radial-gradient(
+      circle at 78% 23%,
+      rgba(40, 168, 240, 0.22),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 15% 78%,
+      rgba(216, 174, 104, 0.2),
+      transparent 31%
+    ),
+    linear-gradient(130deg, #080b10 10%, #111b27 55%, #080b10 100%);
+  box-shadow: inset 0 0 120px rgba(9, 13, 20, 0.7);
+}
+::selection {
+  background: var(--gold);
+  color: #090909;
+}
+@layer components {
+  .premium-tag {
+    @apply inline-flex items-center border border-gold/35 bg-white/3 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.22em] text-foreground/85 backdrop-blur-sm;
+  }
+  .home-logo-3d {
+    @apply pointer-events-none absolute left-1/2 top-[18%] flex -translate-x-1/2 items-center justify-center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+  .home-logo-3d-image {
+    transform-style: preserve-3d;
+    animation:
+      home-logo-3d-drift 12s ease-in-out infinite,
+      home-logo-3d-glow 6s ease-in-out infinite;
+  }
+  .events-logo-stage {
+    @apply mb-12 flex min-h-24 items-center sm:mb-16 sm:min-h-32;
+  }
+  .events-hero-logo {
+    @apply h-auto;
+    animation:
+      events-logo-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both,
+      events-logo-glow 4s ease-in-out 1s infinite;
+  }
+  .photo-placeholder {
+    background:
+      radial-gradient(
+        circle at 72% 24%,
+        rgba(40, 168, 240, 0.34),
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at 24% 78%,
+        rgba(216, 174, 104, 0.24),
+        transparent 32%
+      ),
+      linear-gradient(135deg, #17202b 0%, #0b1118 52%, #1a2632 100%);
+    transition:
+      transform 700ms ease-out,
+      filter 700ms ease-out;
+  }
+  .group:hover .photo-placeholder,
+  .group:focus-within .photo-placeholder {
+    transform: scale(1.05);
+    filter: saturate(1.2) brightness(1.08);
+  }
+  .site-shell {
+    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12;
+  }
+  .section-space {
+    @apply py-20 sm:py-28 lg:py-36;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.22em] text-gold;
+  }
+  .display-heading {
+    @apply font-sans font-medium tracking-[-0.06em] text-foreground;
+    text-shadow: 0 0 32px rgba(216, 174, 104, 0.16);
+  }
+  .section-heading {
+    @apply mt-4 font-sans font-medium tracking-[-0.06em] text-foreground text-4xl leading-[0.96] sm:text-5xl lg:text-6xl;
+  }
+  .copy {
+    @apply text-base leading-7 text-muted sm:text-lg;
+  }
+  .panel {
+    @apply border border-line bg-surface;
+  }
+  .mental-card {
+    @apply relative overflow-hidden rounded-2xl border border-line bg-surface-raised p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_50px_rgba(216,174,104,0.08)] sm:p-8;
+  }
+  .mental-card::before {
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, rgba(216, 174, 104, 0.7), transparent);
+  }
+  .priority-section {
+    position: relative;
+  }
+  .priority-section::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(12rem, 42vw);
+    height: 2px;
+    content: "";
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: translateX(-50%);
+    opacity: 0.8;
+  }
+  .text-link {
+    @apply inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.14em] text-foreground transition-colors duration-300 hover:text-accent;
+  }
+  .registration-input {
+    @apply min-h-12 border border-line bg-background px-4 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-accent;
+  }
+  .registration-submit {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 bg-gold px-5 text-xs font-semibold uppercase tracking-[.16em] text-black transition-colors duration-300 hover:bg-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent;
+  }
+  .mental-health-page .mental-health-hero .hero-atmosphere {
+    background:
+      radial-gradient(
+        circle at 82% 18%,
+        rgba(170, 199, 154, 0.28),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 14% 82%,
+        rgba(216, 174, 104, 0.18),
+        transparent 32%
+      ),
+      linear-gradient(135deg, #173d2b 0%, #24563c 58%, #102d21 100%);
+  }
+  .mental-health-page .mental-health-eyebrow {
+    color: #dce8d5;
+  }
+  .mental-health-page .mental-health-primary-button {
+    background: #f8f5eb;
+    color: #173d2b;
+  }
+  .mental-health-page .mental-health-primary-button:hover {
+    background: #dce8d5;
+  }
+  .mental-health-page .mental-health-secondary-button {
+    border-color: rgba(248, 245, 235, 0.55);
+    color: #f8f5eb;
+  }
+  .mental-health-page .mental-health-secondary-button:hover {
+    border-color: #dce8d5;
+    color: #dce8d5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .events-hero-logo,
+  .home-logo-3d-image {
+    animation: none;
+  }
 }
