@@ -16,6 +16,10 @@ const artists = [
   },
   {
     name: "Augustin",
+    photo: "/Concert Images/Augustin.jpeg",
+  },
+  {
+    name: "Ramesh",
     photo: "/Concert Images/Ramesh.jpeg",
   },
   {

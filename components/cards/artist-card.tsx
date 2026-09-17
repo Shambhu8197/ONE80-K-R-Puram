@@ -17,7 +17,7 @@ export function ArtistCard({
       <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.12] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div className="relative">
         <div
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-cover bg-[center_35%] grayscale transition duration-700 group-hover:grayscale-0"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-cover bg-[center_35%] transition duration-700"
           style={{
             backgroundImage: `url("${photo}")`,
             backgroundPosition: photoPosition,
